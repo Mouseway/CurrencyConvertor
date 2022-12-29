@@ -1,14 +1,19 @@
 import React from 'react';
+import CurrencyConvertor from './components/CurrencyConvertor'
+import { Container } from './components/StyledComponents'
+import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
 
-import {View } from 'react-native';
 
+const queryClient = new QueryClient()
 const App: React.FC = () => {
-
+  
   return (
-      <View>
-
-      </View>
-    );
+    <QueryClientProvider client={queryClient}>
+      <Container>
+        <CurrencyConvertor/>
+      </Container>
+    </QueryClientProvider>
+  )
 };
 
 export default App;
