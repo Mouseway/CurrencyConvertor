@@ -13,7 +13,7 @@ const CurrencyConvertor: React.FC = () => {
     const [selectedCurrency, setSelectedCurrency] = useState<PickerItem|undefined>(undefined);
     const [amount, setAmount] = useState(100)
     const [result, setResult] = useState<number|undefined>(undefined)
-    const { isLoading, error, data } = useQuery('repoData', () =>
+    const { isLoading, error, data } = useQuery<string, Error>('repoData', () =>
         fetch('https://www.cnb.cz/en/financial-markets/foreign-exchange-market/central-bank-exchange-rate-fixing/central-bank-exchange-rate-fixing/daily.txt').then(res =>
             res.text()
         )
