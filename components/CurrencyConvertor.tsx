@@ -25,10 +25,10 @@ const CurrencyConvertor: React.FC = () => {
 
     if(data != undefined){
         const exchanges = parseData(data)
-        const pickerItems = exchanges.map((exchange)=>{
+        const pickerItems = exchanges.map((currency)=>{
             return new PickerItem(
-                exchange.code,
-                exchange.rate
+                currency.code,
+                currency
             )
         })
         if(selectedCurrency == undefined){
@@ -37,7 +37,7 @@ const CurrencyConvertor: React.FC = () => {
 
         const convertMoney= () => {
             if(selectedCurrency != undefined){
-                setResult(roundDecimal(amount / selectedCurrency.value, 2))
+                setResult(roundDecimal(amount / (selectedCurrency.value.rate / selectedCurrency.value.amount), 2))
             }
         }
 
@@ -105,7 +105,8 @@ const parseData = (data: String) => {
     rows.pop()
     return rows.map((str: String)=>{
         const splited = str.split('|')
-        return new Currency(splited[0], splited[1], parseFloat(splited[4]), splited[3])
+        const amount = parseFloat(splited[2])
+        return new Currency(splited[0], splited[1], amount, parseFloat(splited[4]), splited[3])
     })
 }
 

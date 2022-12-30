@@ -1,8 +1,10 @@
+import { Currency } from "./Currency"
+
 export class PickerItem {
     label: string
-    value: number
+    value: Currency
 
-    constructor(label: string, value: number) {
+    constructor(label: string, value: Currency) {
         this.label = label,
             this.value = value
     }

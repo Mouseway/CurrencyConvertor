@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, FlatList, View } from 'react-native';
 import { ListItem, ListHeader, HeaderText } from './StyledComponents'
 import {Currency} from "../classes/Currency"
+import { roundDecimal } from '../other/utils';
 
 type CurrencyTableProps = {
     data: Currency[]
@@ -25,7 +26,7 @@ const CurrencyItem: React.FC<ListItemProps> = (props) => {
     return <ListItem>
         <Text style={{flex: 3}}>{props.currency.currency} ({props.currency.country})</Text>
         <Text style={{ flex: 1 }}>{props.currency.code}</Text>
-        <Text style={{ flex: 1 }}>{props.currency.rate}</Text>
+        <Text style={{ flex: 1 }}>{roundDecimal(props.currency.rate / props.currency.amount, 4)}</Text>
     </ListItem>
 }
 
