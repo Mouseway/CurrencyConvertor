@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, ViewStyle, StyleProp } from 'react-native';
 import {RowContainer, TextInput, Label, ResultText} from './StyledComponents'
 import {CurrenciesList} from './CurrenciesList'
 import {PickerItem} from '../classes/PickerItem'
@@ -49,6 +49,17 @@ const CurrencyConvertor: React.FC = () => {
 
         const resultText = (result != undefined) ? amount + " Kč" + " = " + result + " " + selectedCurrency?.label : " " 
 
+        const style = {
+            dropdown: {
+                borderWidth: 1,
+                borderStyle: "solid",
+                borderColor: "black",
+                alignContent: "center",
+                height: 50,
+                borderRadius: 8
+            } as StyleProp<ViewStyle>
+        } 
+
         return (
             <View>
                 <RowContainer>
@@ -59,13 +70,7 @@ const CurrencyConvertor: React.FC = () => {
                     <Label>Convert to:</Label>
                     <View style={{flex: 1}}>
                         <Dropdown
-                            style={{
-                                borderWidth: 1,
-                                borderStyle: "solid",
-                                borderColor: "black",
-                                alignContent: "center",
-                                height: 50,
-                                borderRadius: 8}}
+                            style={style.dropdown}
                             selectedTextStyle={{
                                 textAlign: "center"
                             }}
