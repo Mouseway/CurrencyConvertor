@@ -2,9 +2,11 @@ import React, {useState} from 'react';
 import { View, Text, Button } from 'react-native';
 import {RowContainer, TextInput, Label, ResultText} from './StyledComponents'
 import {CurrenciesList} from './CurrenciesList'
+import {PickerItem} from '../classes/PickerItem'
 import { useQuery } from 'react-query';
 import { Dropdown } from 'react-native-element-dropdown';
 import { Currency } from '../classes/Currency';
+import {roundDecimal} from '../other/utils'
 
 
 const CurrencyConvertor: React.FC = () => {
@@ -48,7 +50,7 @@ const CurrencyConvertor: React.FC = () => {
         const resultText = (result != undefined) ? amount + " Kč" + " = " + result + " " + selectedCurrency?.label : " " 
 
         return (
-            <View style={{flexDirection: "column", display: "flex"}}>
+            <View>
                 <RowContainer>
                     <Label>Amount in Kč:</Label>
                     <TextInput value={amount.toString()} onChangeText={onAmountChange} keyboardType="numeric"/>
@@ -68,7 +70,7 @@ const CurrencyConvertor: React.FC = () => {
                                 textAlign: "center"
                             }}
                             data={pickerItems}
-                            maxHeight={200}
+                            maxHeight={300}
                             labelField="label"
                             valueField="value"
                             placeholder={'Select currency'}
@@ -86,21 +88,10 @@ const CurrencyConvertor: React.FC = () => {
             </View>
         );
     }
-
     return (
         <Text>{data}</Text>
     )
 };
-
-class PickerItem {
-    label: string
-    value: number
-
-    constructor(label: string, value: number){
-        this.label = label,
-        this.value = value
-    }
-}
 
 const parseData = (data: String) => {
     const rows = data.split("\n")
@@ -113,8 +104,4 @@ const parseData = (data: String) => {
     })
 }
 
-const roundDecimal = (num: number, decimals: number) => {
-    const a = Math.pow(10, decimals)
-    return Math.round((num + Number.EPSILON) * a) / a
-}
 export default CurrencyConvertor;
