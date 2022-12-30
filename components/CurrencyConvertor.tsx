@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import { View, Text, Button } from 'react-native';
 import {RowContainer, TextInput, Label, ResultText} from './StyledComponents'
+import {CurrenciesList} from './CurrenciesList'
 import { useQuery } from 'react-query';
 import { Dropdown } from 'react-native-element-dropdown';
+import { Currency } from '../classes/Currency';
 
 
 const CurrencyConvertor: React.FC = () => {
@@ -39,13 +41,14 @@ const CurrencyConvertor: React.FC = () => {
 
         const onAmountChange = (val: string) => {
             setResult(undefined)
-            setAmount(parseInt(val))
+            const num = parseInt(val)
+            setAmount((!isNaN(num))? num : 0)
         }
 
-        const resultText = (result != undefined) ? amount + " Kč" + " = " + result + " " + selectedCurrency?.label : "" 
+        const resultText = (result != undefined) ? amount + " Kč" + " = " + result + " " + selectedCurrency?.label : " " 
 
         return (
-            <View style={{flexDirection: "column"}}>
+            <View style={{flexDirection: "column", display: "flex"}}>
                 <RowContainer>
                     <Label>Amount in Kč:</Label>
                     <TextInput value={amount.toString()} onChangeText={onAmountChange} keyboardType="numeric"/>
@@ -56,10 +59,8 @@ const CurrencyConvertor: React.FC = () => {
                         <Dropdown
                             style={{
                                 borderWidth: 1,
-                                // flex: 1,
                                 borderStyle: "solid",
                                 borderColor: "black",
-                                padding: "auto",
                                 alignContent: "center",
                                 height: 50,
                                 borderRadius: 8}}
@@ -79,8 +80,9 @@ const CurrencyConvertor: React.FC = () => {
                         />
                     </View>
                 </RowContainer>
-                <Button title="Convert" onPress={convertMoney}/>
-                <ResultText>{resultText}</ResultText>
+                <Button title="Convert" color={"#0e7af6"} onPress={convertMoney}/>
+                <ResultText>Result: {resultText}</ResultText>
+                <CurrenciesList data={exchanges}/>
             </View>
         );
     }
@@ -89,18 +91,6 @@ const CurrencyConvertor: React.FC = () => {
         <Text>{data}</Text>
     )
 };
-
-class Exchange {
-    country: string
-    code: string
-    rate: number
-
-    constructor(country: string, rate: number, code: string){
-        this.country = country
-        this.rate = rate
-        this.code = code 
-    }
-}
 
 class PickerItem {
     label: string
@@ -119,7 +109,7 @@ const parseData = (data: String) => {
     rows.pop()
     return rows.map((str: String)=>{
         const splited = str.split('|')
-        return new Exchange(splited[0], parseFloat(splited[4]), splited[3])
+        return new Currency(splited[0], splited[1], parseFloat(splited[4]), splited[3])
     })
 }
 

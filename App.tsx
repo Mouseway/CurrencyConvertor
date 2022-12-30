@@ -6,7 +6,6 @@ import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
 
 const queryClient = new QueryClient()
 const App: React.FC = () => {
-  
   return (
     <QueryClientProvider client={queryClient}>
       <Container>

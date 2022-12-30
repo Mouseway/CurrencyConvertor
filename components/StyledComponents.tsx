@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 const Container = styled.View`
     align-items: center;
     flex: 1;
-    padding: 50px 20px;
+    padding: 50px 20px 20px 20px;
 `
 
 const RowContainer = styled.View`
@@ -33,8 +33,29 @@ const Label = styled.Text`
 
 const ResultText = styled.Text`
     font-size: 20px;
-    flex: 1;
     text-align: center;
     margin-top: 20px;
+    margin-bottom: 20px;
 `
-export { Container, RowContainer, TextInput, Label, ResultText }
+
+const ListItem = styled.View`
+    background-color:#d7eaff ;
+    border-radius: 15px;
+    margin: 5px;
+    height: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+`
+
+const ListHeader = styled(ListItem)`
+    background-color: #0e7af6;
+    color: white;
+`
+const HeaderText = styled.Text`
+    color: white
+`
+
+export { Container, RowContainer, TextInput, Label, ResultText, ListItem, ListHeader, HeaderText}
